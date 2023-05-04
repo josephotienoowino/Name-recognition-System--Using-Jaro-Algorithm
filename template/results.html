@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Jaro-Winkler Distance Results</title>
+  </head>
+  <body>
+    <h1>Jaro-Winkler Distance Results</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Entity</th>
+          <th>Reference Entity</th>
+          <th>Similarity Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for key, value in results.items() %}
+          {% set entity, ref_index = key.split("_") %}
+          {% if loop.index0 % reference_list|length == 0 %}
+            <tr>
+              <td rowspan="{{ reference_list|length }}">{{ entity }}</td>
+          {% endif %}
+          {% if loop.index0 % reference_list|length != 0 %}
+            {% set reference = reference_list[ref_index|int] %}
+            <td>{{ reference }}</td>
+            <td>{{ value }}</td>
+            </tr>
+          {% endif %}
+        {% endfor %}
+      </tbody>
+    </table>
+  </body>
+</html>
